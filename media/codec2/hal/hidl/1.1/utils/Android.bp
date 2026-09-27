@@ -67,6 +67,12 @@ cc_library {
 
     defaults: ["hidl_defaults"],
 
+    // Prebuilt Dolby c2 components are built without CFI; calling into them
+    // from CFI-instrumented utils aborts vendor.dolby.media.c2 on decode.
+    sanitize: {
+        cfi: false,
+    },
+
     srcs: [
         "Component.cpp",
         "ComponentInterface.cpp",
