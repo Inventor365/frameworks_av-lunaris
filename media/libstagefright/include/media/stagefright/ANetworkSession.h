@@ -94,8 +94,8 @@ protected:
     virtual ~ANetworkSession();
 
 private:
-    struct NetworkThread;
-    struct Session;
+    struct __attribute__((visibility("hidden"))) NetworkThread;
+    struct __attribute__((visibility("hidden"))) Session;
 
     Mutex mLock;
     sp<Thread> mThread;
@@ -113,7 +113,7 @@ private:
         kModeCreateRTSPServer,
         kModeCreateRTSPClient,
     };
-    status_t createClientOrServer(
+    __attribute__((visibility("hidden"))) status_t createClientOrServer(
             Mode mode,
             const struct in_addr *addr,
             unsigned port,
@@ -122,10 +122,10 @@ private:
             const sp<AMessage> &notify,
             int32_t *sessionID);
 
-    void threadLoop();
-    void interrupt();
+    __attribute__((visibility("hidden"))) void threadLoop();
+    __attribute__((visibility("hidden"))) void interrupt();
 
-    static status_t MakeSocketNonBlocking(int s);
+    __attribute__((visibility("hidden"))) static status_t MakeSocketNonBlocking(int s);
 
     DISALLOW_EVIL_CONSTRUCTORS(ANetworkSession);
 };
